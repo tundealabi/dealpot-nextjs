@@ -1,65 +1,39 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Link from 'next/link';
+import Layout from '../components/Layout.jsx';
+import style from '../styles/Home.module.css';
+
+
 
 export default function Home() {
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <Layout >
+      <div className={style.container}>
+      <h1> This is the HOMEPAGE!!!!!!</h1>
+       <h2>Project features</h2>
+       <ul>Logged-in user:</ul>
+       <li>Can search for products</li>
+       <li>Can find products using the category tab</li>
+       <li>Can click on the "go to vendor" button to read more about a product on the vendor's website and can make purchase there</li>
+       <li>Can click on the "heart" icon to save an item or remove one</li>
+       <li>Can click on the "bell" icon to add an item to "price changed" watchlist or remove</li>
+       <li>Can access the wishlist page to view their saved items and from there check the price history if any</li>
+       <li>Will receive notification if there is change in price on any product they've added to the watchlist</li>
+       <ul>Logged-out user:</ul>
+       <li>Can search for products</li>
+       <li>Can find products using the category tab</li>
+       <li>Can not click on the "go to vendor" button to read more about a product on the vendor's website and can make purchase there</li>
+       <li>Can not click on the "heart" icon to save an item or remove one</li>
+       <li>Can not click on the "bell" icon to add an item to "price changed" watchlist or remove</li>
+       <li>Can not access the wishlist page to view their saved items and from there check the price history if any</li>
+       <li>Will not receive notification about changes in product price</li>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
+       <ul><b>NB:</b>
+       <li>This is just a dummy frontend. Will integrate the real frontend when it's ready.</li>
+       <li>If you want to test the price history and notification feature, when searching for a product click on the "bell" icon on products with vendor name "Testweb", return to the website later to see the changes.</li>
+       <li>Testweb is just a dummy website that was created for the sole purpose of testing out the price history and notification feature for this project.</li>
+    </ul>
     </div>
+    </Layout>
+    
   )
 }
