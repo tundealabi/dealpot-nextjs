@@ -5,7 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ModalForm from './ModalForm.jsx';
 import NotificationModal from "./NotificationModal";
-import style from "../styles/layout.module.css";
+import style from "../styles/Layout.module.css";
 import Header from "./Header.jsx";
 import SideNav from './SideNav.jsx';
 import Footer from "./Footer";
