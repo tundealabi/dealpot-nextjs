@@ -1,8 +1,8 @@
 import { Modal, Button, Row, Col, Container } from 'react-bootstrap';
 import { signIn } from "next-auth/client";
-import LoginForm from './LoginForm';
+// import LoginForm from './LoginForm';
 import style from '../styles/ModalForm.module.css';
-import SignupForm from './SignupForm';
+// import SignupForm from './SignupForm';
 
 const FormBody = ({formContent, displayFormContent, handleModal}) => {
   if(formContent === 'login'){
