@@ -2,7 +2,7 @@ import { useSession } from "next-auth/client";
 import { useEffect, useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import Layout from '../components/Layout.jsx';
-import homepageData from '../lib/homepageData';
+// import homepageData from '../lib/homepageData';
 import Product from '../components/Product.jsx';
 import style from '../styles/Home.module.css';
 import homepageDataApi from "../lib/homepageData";

@@ -1,4 +1,4 @@
-import style from "../styles/footer.module.css";
+import style from "../styles/Footer.module.css";
 
 const Footer = ({showWishlistFooter, isWishlist}) => {
     return (
