@@ -1,10 +1,87 @@
- /* .container{
-   background: yellow;
-   width: 100%;
+ .container{
+    background-color: whitesmoke;
+ }
+
+ /* for pc */
+.supportArea{
+   background-color: white;
+   display: flex;
+   flex-flow: row nowrap;
+   justify-content: space-evenly;
+   padding: 1rem 0;
+   margin-bottom: 1rem;
+   border: 1px solid blue;
 }
-.container ul{
-   font-size: 1.6rem;
+
+/* for mobile touchscreens */
+.supportArea-scrolling-wrapper {
+   overflow-x: auto;
+   background-color: white;
+   display: flex;
+   flex-flow: row nowrap;
+   padding: 1rem 1rem;
+   margin-bottom: 1rem;
 }
-.container li{
-   font-size: 1.3rem;
-} */
+.supportArea-scrolling-wrapper {
+   -webkit-overflow-scrolling: touch;
+ }
+ .supportArea-scrolling-wrapper::-webkit-scrollbar {
+     display: none;
+ }
+ .supportArea-scrolling-wrapper > div {
+   /* border: 1px solid goldenrod; */
+   flex: 0 0 auto;
+   padding-left: 1.56rem;
+}
+.supportArea span, .supportArea-scrolling-wrapper span{
+   color: #dc3545;
+   font-size: 2rem;
+   margin-left: 25%;
+}
+.supportText {
+   border-right: 2px solid grey;
+   padding-right: 2.65rem;
+}
+.supportText p{
+   margin: 0;
+}
+.supportText p:first-child{
+   font-weight: bolder;
+}
+.supportArea > div:last-child > .supportText, .supportArea-scrolling-wrapper > div:last-child > .supportText{
+   border: none;
+}
+
+/* NEW DEALS */
+.deals{
+   background-color: white;
+   padding-top: 1rem;
+   margin-bottom: 1rem;
+}
+.deals h2{
+   text-align: center;
+}
+.productGrid{
+   padding: 1rem;
+}
+
+
+@media(max-width:750px){
+   .supportArea {
+      display: none;
+   }
+   .deals {
+      margin-top: 2rem;
+   }
+   .supportArea-scrolling-wrapper {
+      margin-bottom: -1rem;
+   }
+}
+
+
+
+/* function is_touch_enabled() { 
+    return ( 'ontouchstart' in window ) ||  
+           ( navigator.maxTouchPoints > 0 ) ||  
+           ( navigator.msMaxTouchPoints > 0 ); 
+}  */

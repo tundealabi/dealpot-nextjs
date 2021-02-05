@@ -1,0 +1,105 @@
+.product {
+    background-color: white;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    height: 24.756rem;
+}.product:hover{
+    -webkit-box-shadow: 4px 4px 5px 0px rgba(51, 50, 50, 0.23);
+    -moz-box-shadow: 4px 4px 5px 0px rgba(51, 50, 50, 0.23);
+    box-shadow: 4px 4px 5px 0px rgba(51, 50, 50, 0.23);
+}
+.product img{
+    display: block;
+    margin: 0 auto .66rem;
+    max-width: 100%;
+    height: 10.456rem;
+    /* border: 1px solid goldenrod; */
+    /* width: 100%; */
+}
+.product > div div{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+.product div span{
+    cursor: pointer;
+}
+.productDetails > div:last-of-type p{
+    font-weight: 900;
+    
+}
+.product .productDetails > p{
+    font-size: 0.94rem;
+    font-weight: 700;
+    /* text-transform: capitalize; */
+    height: 2.876rem;
+}
+.product button, .product a {
+    border-color: #2d2d2d;
+    outline: 0;
+    transition: all 1.3s;
+}
+.product button:hover, .product a:hover{
+    background-color: #2d2d2d;
+    color: honeydew;
+}
+.wishlistProduct {
+    height: 27.756rem;
+}
+
+@media(max-width:760px){
+    .product {
+        display: flex;
+        flex-flow: flex nowrap;
+        justify-content: space-between;
+        height: 13.356rem;
+        padding: 0;
+        margin-bottom: 1rem;
+    }
+    .product img {
+        margin-left: 0;
+        flex-basis: 30%;
+        max-width: 90%;
+        height: 7.456rem;
+        align-self: center;
+    }
+    .productDetails {
+        display: flex;
+        flex-basis: 67%;
+        flex-flow: column nowrap;
+        padding-right: .45rem;
+    }
+    .productDetails button {
+        margin-top: .58rem;
+    }
+    .product .productDetails > p{
+        font-size: 0.89rem;
+        text-transform: capitalize;
+        height: 1.376rem;
+    }
+    .wishlistProduct {
+        height: 16.356rem;
+    }
+}
+
+@media(max-width:430px){
+    .product {
+        height: 12.356rem;
+    }
+    .productDetails {
+        flex-basis: 60%;
+        /* background-color: hotpink; */
+    }
+    .product .productDetails > p{
+        height: 1.976rem;
+    }
+    .wishlistProduct {
+        height: 15.356rem;
+    }
+}
+
+@media(max-width: 300px){
+    .product .productDetails > p{
+        font-size: .73rem;
+    }
+}

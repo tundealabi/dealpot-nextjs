@@ -1,20 +1,17 @@
-import mongoose from 'mongoose';
-import User from '../../../lib/database/user-model';
+import dbConnect from '../../../lib/database/dbConnect';
+import { User } from '../../../lib/database/models/';
 
 //connect to mongoose
-mongoose.set('useFindAndModify', false);
-mongoose.set('useNewUrlParser', true);
-mongoose.set('useUnifiedTopology', true);
-if(process.env.NODE_ENV == "production"){
-    mongoose.connect(process.env.NEXTAUTH_DATABASE_URL)
-    .then(()=>console.log("MongoDbAtlas is hot"))
-    .catch(err=>console.log("Err..looks like something broke @mongoAtlas",err.message));
-}else{
-    mongoose.connect(process.env.NEXTAUTH_DATABASE_URL)
-    .then(()=>console.log("MongoDb is hot"))
-    .catch(err=>console.log("Err..looks like something broke",err.message));
-}
+
 
 export default async (req,res) => {
-    if(req.method === 'POST') return res.json({user:await User.findById(req.body.id)});
+    console.log("find-user",req.body)
+    if(req.method === 'POST') {
+        try {
+            await dbConnect();
+        } catch (error) {
+            console.log("something broke@ mongo",error);
+        }
+        res.json({user:await User.findById(req.body.id)});
+    }
 } 
