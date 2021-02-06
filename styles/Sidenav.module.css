@@ -82,3 +82,11 @@
     margin-left: .69rem;
     font-size: 1.15rem;
 }
+.wishlist > a {
+  color: black;
+  text-decoration: none;
+}
+.wishlist > a:hover {
+  color: black;
+  text-decoration: none;
+}

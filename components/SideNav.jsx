@@ -76,6 +76,11 @@ const SideNav = ({displayFormContent,handleModal,showSideNav,handleSideNav,user,
                 <p onClick={()=>handleModalToggle("login")}>Login</p>
                 <p onClick={()=>handleModalToggle("signup")}>Signup</p>
             </div>
+            <div className={style.wishlist}>
+                  <Link href="/customer/wishlist">
+                    <a>Wishlist</a>
+                  </Link>
+            </div>
             <div className={style.notification} onClick={handleNotification}>
                 Notification
                 <span className={`badge ${unreadNotification ? "bg-danger" : "bg-secondary"}`}>{unreadNotification}</span>
