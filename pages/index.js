@@ -1,15 +1,15 @@
 import { useSession } from "next-auth/client";
 import { useEffect, useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import Layout from '../components/Layout.jsx';
 // import homepageData from '../lib/homepageData';
 import Product from '../components/Product.jsx';
 import style from '../styles/Home.module.css';
-import homepageDataApi from "../lib/homepageData";
+import { homepageDataApi, homepageTestData } from "../lib/homepageData";
 
 
 export default function Home({homepageData}) {
-  // console.log("homepagedata",homepageData)
   const [user, setUser] = useState(null);
   const [topDeals, setTopDeals ] = useState(homepageData.newDeals);
   const [popularDeals, setPopularDeals ] = useState(homepageData.popularDeals);
@@ -29,9 +29,10 @@ export default function Home({homepageData}) {
       setUser(null);
     }
   },[loading])
-  const handleClickTop = async(productData,fn) => {
+  const handleClickTop = async(productData,fn,type) => {
     if(user){
       let updatedProduct = await fn(user._id,productData);
+      
       let newState = topDeals.map(prod=>{
         if(prod.itemUrl === updatedProduct.itemUrl){
           prod = {...updatedProduct};
@@ -40,10 +41,15 @@ export default function Home({homepageData}) {
       })
       setTopDeals(newState);
     }else{
-      alert("You need to login")
+      let text = type === "wishlist" ? "Login to add this item to your wishlist" : type === "notify" ? "Login to subscribe for notifications for changes in price of this item" : "Login to visit vendor's site";
+      toast.dark(text,{
+        autoClose: 3000,
+        pauseOnFocusLoss: false,
+        toastId: "jalingo"
+      });
     }
   }
-  const handleClickPopular = async(productData,fn) => {
+  const handleClickPopular = async(productData,fn,type) => {
     if(user){
       let updatedProduct = await fn(user._id,productData);
       let newState = popularDeals.map(prod=>{
@@ -54,7 +60,12 @@ export default function Home({homepageData}) {
       })
       setPopularDeals(newState);
     }else{
-      alert("You need to login")
+      let text = type === "wishlist" ? "Login to add this item to your wishlist" : type === "notify" ? "Login to subscribe for notifications for changes in price of this item" : "Login to visit vendor's site";
+      toast.dark(text,{
+        autoClose: 3000,
+        pauseOnFocusLoss: false,
+        toastId: "jalingo"
+      });
     }
   }
   
@@ -66,19 +77,25 @@ export default function Home({homepageData}) {
       <div className="carousel-inner">
         <div className="carousel-item active">
             <img src="/slide1.png" className="d-block w-100" alt="first slideshow image" />
-            <div className="carousel-caption d-md-block border border-warning" style={{marginBottom:"15%"}}>
+            <div className="carousel-caption d-md-block">
             <button type="button" className="btn btn-danger" onClick={()=>setFocus(true)}>Get started</button>
       </div>
         </div>
         <div className="carousel-item">
           <img src="/slide2.png" className="d-block w-100" alt="second slideshow image" />
-          <div className="carousel-caption d-md-block border border-warning" style={{marginBottom:"15%"}}>
+          <div className="carousel-caption d-md-block">
             <button type="button" className="btn btn-danger" onClick={()=>setFocus(true)}>Get started</button>
       </div>
         </div>
         <div className="carousel-item">
           <img src="/slide3.png" className="d-block w-100" alt="third slideshow image" />
-          <div className="carousel-caption d-md-block border border-warning" style={{marginBottom:"15%"}}>
+          <div className="carousel-caption d-md-block">
+            <button type="button" className="btn btn-danger" onClick={()=>setFocus(true)}>Get started</button>
+      </div>
+        </div>
+        <div className="carousel-item">
+          <img src="/slide4.png" className="d-block w-100" alt="fourth slideshow image" />
+          <div className="carousel-caption d-md-block">
             <button type="button" className="btn btn-danger" onClick={()=>setFocus(true)}>Get started</button>
       </div>
         </div>
@@ -106,8 +123,8 @@ export default function Home({homepageData}) {
         <div>
           <span><i className="fas fa-headset"></i></span>
           <div className={style.supportText}>
-          <p>Compare Deals</p>
-            <p>Best Deals Online</p>
+          <p>Credible Partners</p>
+            <p>Trusted Names</p>
           </div>
             
         </div>
@@ -124,7 +141,7 @@ export default function Home({homepageData}) {
 
       {/* START OF NEW DEALS AREA */}
       <div className={style.deals}>
-          <h2>New Deals</h2>
+          <h3>New Deals</h3>
           <div className={style.productGrid}>
               <Row>
                 {topDeals.map(product=> <Col key={product.itemUrl} xs={12} md={4} lg={3}><Product product={product} handleClick={handleClickTop} user={user}/></Col>)}
@@ -134,7 +151,7 @@ export default function Home({homepageData}) {
       {/* END OF NEW DEALS AREA */}
       {/* START OF POPULAR DEALS AREA */}
       <div className={style.deals}>
-          <h2>Popular Deals</h2>
+          <h3>Popular Deals</h3>
           <div className={style.productGrid}>
               <Row>
                 {popularDeals.map(product=> <Col key={product.itemUrl} xs={12} md={4} lg={3}><Product product={product} handleClick={handleClickPopular} user={user}/></Col>)}
@@ -150,21 +167,13 @@ export default function Home({homepageData}) {
 
 export async function getStaticProps() {
   const data = await homepageDataApi();
-  const testProduct = {
-            vendor: "Testweb",
-            itemName: "Headphone 1",
-            itemPrice: "NGN 100,000",
-            itemImage: "https://www-konga-com-res.cloudinary.com/w_auto,f_auto,fl_lossy,dpr_auto,q_auto/media/catalog/product/A/U/83451_1589193655.jpg",
-            itemUrl: "https://dealpot-test-web.netlify.app/headphone1.html",
-            notify: false,
-            showLike: false
-  }
-// console.log(data)
+  const testProduct = await homepageTestData();
+
   return {
     props: {
       homepageData: {
         newDeals: data.slice(0,4),
-        popularDeals: data.slice(4,8).concat([testProduct])
+        popularDeals: [...data.slice(4,8), ...testProduct]
       }
     },
     revalidate: 40, // In seconds

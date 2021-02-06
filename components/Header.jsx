@@ -3,7 +3,7 @@ import CustomLink from './CustomLink.jsx';
 import Link from "next/link";
 import { useRouter } from 'next/router';
 import { useState, useRef, useEffect } from "react";
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import style from '../styles/Header.module.css';
 import { userReadNotification } from "../lib/utils/notification-helper";
@@ -13,6 +13,8 @@ const Header = ({handleModal, displayFormContent,handleSideNav,user,focused,deac
 const router = useRouter();
 const [searchTerm, changeSearch] = useState("");
 const searchInput = useRef(null);
+const [ unreadNotification, setUnreadNotification ] = useState(0);
+const [ notificationIsupdated, setNotificationIsUpdated ] = useState(false);
 
 const handleSearch = () => {
   if(searchTerm.trim().length) router.push(`/search?q=${searchTerm}`);
@@ -27,7 +29,20 @@ useEffect(()=>{
     searchInput.current.focus();
     deactivateFocus(false);
   }
-},[focused]);
+  if(user){
+    if( !notificationIsupdated ){
+      setUnreadNotification(user.numbOfNotification)
+    }
+    if(notificationIsupdated && !user.numbOfNotification){
+      setNotificationIsUpdated(false);
+    }
+  }
+  if(router.query.q){
+    if(router.query.q.length > 1 && !searchTerm.length){
+      changeSearch(router.query.q)
+    }
+  }
+},[focused, user, router.query]);
 
 
 const handleModalToggle = (formContent) => {
@@ -37,7 +52,14 @@ const handleModalToggle = (formContent) => {
 const handleNotification = () => {
     if(user){
       handleNotificationModal(true);
-      if(user.numbOfNotification) userReadNotification(user._id);
+      if(unreadNotification){
+        userReadNotification(user._id).then((result)=> {
+          if(result.data.message){
+            setUnreadNotification(0);
+            setNotificationIsUpdated(true);
+          }
+        });
+      } 
     }else{
       toast.dark("Login to receive notifications",{
         autoClose: 3000,
@@ -54,10 +76,12 @@ const handleNotification = () => {
                   <i className="fas fa-bars" onClick={()=>handleSideNav(true) }></i>
                 </div>
                 <Link href="/">
+                  <a>
                   <div>
                     <img src="/Path.png" alt="brand logo"/>
                     <img src="/Dealpot.png" alt="brand logo"/>
                   </div>
+                  </a>
                 </Link>
               </div>
               <div className={style.brandAreaRight}>
@@ -90,9 +114,8 @@ const handleNotification = () => {
                 {`Hi, ${user.username}`}
               </button>
               <div className="dropdown-menu">
-                <button className="dropdown-item" type="button">Account</button>
+                <button className="dropdown-item" type="button" onClick={handleNotification}>Notification<span className={`badge text-white ml-2 ${unreadNotification ? "bg-danger" : "bg-primary"}`}>{unreadNotification}</span></button>
                 <CustomLink href={"/customer/wishlist"} classs="dropdown-item" >Saved Items</CustomLink>
-                <button className="dropdown-item" type="button">Notification</button>
                 <div className="dropdown-divider"></div>
                 <button className="dropdown-item" type="button" onClick={()=>signOut({ callbackUrl: 'https://dealpot-nextjs.vercel.app' })}>Logout</button>
               </div>
@@ -111,7 +134,7 @@ const handleNotification = () => {
                   </div>
                   )
                 }
-                <div className={`${style.userIcon} ${user ? user.numbOfNotification ? "text-danger" : "" : ""}`} onClick={handleNotification}>
+                <div className={`${style.userIcon} ${unreadNotification ? "text-danger" : ""}`} onClick={handleNotification}>
                   <i className="fas fa-bell"></i>
                 </div>
               </div>
@@ -138,7 +161,7 @@ const handleNotification = () => {
               </div>
                      <Link href="/category/category-fashion"><a className={style.categoryLink} >Fashion</a></Link>
                      <Link href="/category/category-edible"><a className={style.categoryLink} >Food</a></Link>
-                     <Link href="/category/category-home-kitchen"><a className={style.categoryLink} >Home</a></Link>
+                     <Link href="/category/category-home-kitchen"><a className={style.categoryLink} >Kitchen</a></Link>
                      <Link href="/category/category-phone"><a className={style.categoryLink} >Phone</a></Link>
                      <Link href="/category/category-tech-accessories"><a className={style.categoryLink} >Accessories</a></Link>
             </div>

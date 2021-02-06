@@ -8,30 +8,28 @@ import Product from "../../components/Product";
 import style from "../../styles/Page.module.css";
 
 const CustomerWishlist = ({ session: { user } }) => {
-  console.log("wishlist-session", user);
+  // console.log("wishlist-session", user);
   const[wishlist, setWishlist ] = useState(user.savedItems);
   const [show, setShow] = useState(false);
   const [priceHistoryProduct, setPriceHistoryProduct] = useState({priceHistory:[],itemPrice:""});
 
   const handleClick = async(productData,fn) => {
       let updatedProduct = await fn(user._id,productData);
-      console.log("up",updatedProduct);
       if(updatedProduct.showLike){
-        let newState = wishlist.map(prod=>{
-          if(prod.itemUrl === updatedProduct.itemUrl){
-            prod = {...updatedProduct};
-          }
-          return prod;
+        let newState = wishlist.map(product => {
+            if(product.itemUrl === updatedProduct.itemUrl){
+              product.notify = updatedProduct.notify;
+              product.showLike = updatedProduct.showLike;
+            }
+            return product;
         })
         setWishlist(newState);
       }else{
-        const findProductIdx = wishlist.findIndex(product => product.itemUrl === updatedProduct.itemUrl);
-        let spliceState = wishlist.slice();
-        spliceState.splice(findProductIdx,1);
-        setWishlist(spliceState);
+        let findProductIndex = wishlist.findIndex(product => product.itemUrl === updatedProduct.itemUrl);
+        let newState = wishlist.slice();
+        newState.splice(findProductIndex,1);
+        setWishlist(newState);
       }
-      
-      
     }
 
   const handlePriceHistory = (productUrl) => {

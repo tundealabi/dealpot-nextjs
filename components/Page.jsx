@@ -17,15 +17,12 @@ const Page = ({user, pageIndex, pathName, apiType, pageType, searchTerm}) => {
     const { data, error, isValidating} = useSWR(swrUrl,fetcher,{revalidateOnFocus:false,revalidateOnReconnect:false});
     let loaderQty = ["1a","2b","3c","4d","5e","6f","7g","8h","9i","10j","11k","12l","13m","14n","15o"];
     useEffect(()=>{
-      // console.log("watching dataa")
         if(data){
           updateProducts(data.data.result);
         }else if(!data){
           updateProducts(null);
         }
       },[data]);
-// console.log(products)
-// console.log("data",data)
       const handleClick = async(productData,fn,type) => {
         if(user){
           let updatedProduct = await fn(user._id,productData);

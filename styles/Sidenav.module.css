@@ -59,7 +59,7 @@
   border-right: 2px solid grey;
   padding: 0 1rem 0 0;
 }
-.signOut, .wishlist{
+.signOut, .wishlist, .notification{
   background-color: white;
   padding: 0.76rem 1rem;
   margin: 1rem 0;
@@ -76,4 +76,9 @@
 }
 .address p span:last-child{
   display: block;
+}
+.notification span {
+    color: white;
+    margin-left: .69rem;
+    font-size: 1.15rem;
 }

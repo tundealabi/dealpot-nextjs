@@ -22,8 +22,8 @@
 }
 .categoryLink{
     display: inline-block;
-    padding: 0.6rem 1rem;
-    margin-right: 2rem;
+    padding: 0.6rem .89rem;
+    margin-right: 1.89rem;
     /* border: 1px solid purple; */
     text-decoration: none;
     color: white;
@@ -115,7 +115,7 @@
   }
 }
 
-@media(max-width:835px){
+@media(max-width:843px){
   .categoryLink{
     margin-right: 1rem;
   }

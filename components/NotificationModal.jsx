@@ -1,11 +1,27 @@
+import { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { clearAllNotification } from "../lib/utils/notification-helper";
 
 const NotificationModal = ({show, onHide, notifications, userId}) => {
-    // console.log("notifications",notifications)
+    const [ notificationContent, setNotificationContent ] = useState([]);
+    const [ notificationIsupdated, setNotificationIsUpdated ] = useState(false);
+    useEffect(()=>{
+        if( !notificationIsupdated ){
+            setNotificationContent(notifications)
+          }
+          if(notificationIsupdated && !notifications.length){
+            setNotificationIsUpdated(false);
+          }
+    },[ notifications ])
     const handleNotification = () => {
-        clearAllNotification(userId);
-        onHide();
+        clearAllNotification(userId).then(result => {
+            if(result.data.message){
+                setNotificationContent([]);
+                setNotificationIsUpdated(true);
+            }
+        })
+        
+        // onHide();
     }
     return (
             <Modal
@@ -21,13 +37,13 @@ const NotificationModal = ({show, onHide, notifications, userId}) => {
             </Modal.Title>
             </Modal.Header>
             
-                {notifications.length ?
+                {notificationContent.length ?
                 <> 
                 <Modal.Body>
                 <ul className="list-unstyled">
                 {
-                    notifications.map((notification,index)=> (
-                    <li key={index} className="media">
+                    notificationContent.map((notification,index)=> (
+                    <li key={index} className="media border-bottom">
                         <img src={notification.img} alt="product image" className="mr-3" style={{width:"10%"}}/>
                         <div className="media-body">
                             {notification.message}

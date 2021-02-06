@@ -10,7 +10,6 @@
    justify-content: space-evenly;
    padding: 1rem 0;
    margin-bottom: 1rem;
-   border: 1px solid blue;
 }
 
 /* for mobile touchscreens */
@@ -51,34 +50,68 @@
 .supportArea > div:last-child > .supportText, .supportArea-scrolling-wrapper > div:last-child > .supportText{
    border: none;
 }
-
+.container > div:first-child img+div {
+   margin-bottom: 15%;
+}
 /* NEW DEALS */
 .deals{
    background-color: white;
    padding-top: 1rem;
    margin-bottom: 1rem;
 }
-.deals h2{
+.deals h3{
    text-align: center;
 }
 .productGrid{
    padding: 1rem;
 }
 
+@media(max-width:1200px){
+   .container > div:first-child img+div {
+      margin-bottom: 12%;
+   }
+}
 
 @media(max-width:750px){
    .supportArea {
       display: none;
    }
    .deals {
-      margin-top: 2rem;
+      margin-top: 1rem;
+   }
+   .deals h3{
+      font-size: 1.35rem;
    }
    .supportArea-scrolling-wrapper {
       margin-bottom: -1rem;
    }
+   .container > div:first-child img+div {
+      margin-bottom: 9%;
+   }
 }
 
+@media(max-width:600px){
+   .container > div:first-child img+div {
+      margin-bottom: 7%;
+   }
+}
 
+@media(max-width:460px){
+   .container > div:first-child img+div {
+      margin-bottom: 3%;
+   }
+}
+
+@media(max-width:350px){
+   .container > div:first-child img+div {
+      margin-bottom: 0;
+   }
+}
+@media(max-width:300px){
+   .container > div:first-child img+div {
+      margin-bottom: -1%;
+   }
+}
 
 /* function is_touch_enabled() { 
     return ( 'ontouchstart' in window ) ||  

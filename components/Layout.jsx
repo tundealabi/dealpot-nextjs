@@ -34,8 +34,6 @@ export default function Layout({ children, focused, deactivateFocus, showWishlis
     document.documentElement.scrollTop = 0; //For Chrome, Firefox, IE and Opera
     setGoTopIcon(false);
   }
-// console.log("sess-layout",session)
-// console.log("load-layout",loading)
   useEffect(()=>{
     if(session){
       setUser(session.user);
@@ -70,7 +68,8 @@ export default function Layout({ children, focused, deactivateFocus, showWishlis
         <meta name="og:title" content="Dealpot" />
       </Head>
       <div className={style.layout}>
-      <SideNav handleModal={handleModal} displayFormContent={displayFormContent} showSideNav={showSideNav} handleSideNav={setShowSideNav} user={user}/>
+      <SideNav handleModal={handleModal} displayFormContent={displayFormContent} showSideNav={showSideNav} 
+               handleSideNav={setShowSideNav} user={user} handleNotificationModal={setShowNotification}/>
       <Header handleModal={handleModal} 
               displayFormContent={displayFormContent} 
               handleSideNav={setShowSideNav} user={user} focused={focused} deactivateFocus={deactivateFocus} handleNotificationModal={setShowNotification}/>

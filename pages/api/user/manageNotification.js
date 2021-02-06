@@ -8,13 +8,19 @@ export default async (req,res) => {
         } catch (error) {
          console.log("something broke@ mongo",error);
         }
-        if(req.body.type === "resetnotification"){
-            await User.findByIdAndUpdate(req.body.id,{$set:{numbOfNotification:0}},{new:true});
-            return res.json({message:true,type:"read notification"});
-        }else if(req.body.type === "clearallnotification"){
-            await User.findByIdAndUpdate(req.body.id,{$set:{notifications:[]}},{new:true});
-            return res.json({message:true,type:"clear notification"});
+        try {
+            if(req.body.type === "resetnotification"){
+                await User.findByIdAndUpdate(req.body.id,{$set:{numbOfNotification:0}},{new:true});
+                return res.json({message:true,type:"read notification"});
+            }else if(req.body.type === "clearallnotification"){
+                await User.findByIdAndUpdate(req.body.id,{$set:{notifications:[]}},{new:true});
+                return res.json({message:true,type:"clear notification"});
+            }
+        } catch (error) {
+            console.log(error);
+            return res.json({message:false});
         }
+      
         
     }
 }

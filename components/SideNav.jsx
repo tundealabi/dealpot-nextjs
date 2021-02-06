@@ -1,12 +1,51 @@
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import style from '../styles/Sidenav.module.css';
 import Link from "next/link";
 import { signOut } from 'next-auth/client';
-const SideNav = ({displayFormContent,handleModal,showSideNav,handleSideNav,user}) => {
+import { useEffect, useState } from 'react';
+import { userReadNotification } from "../lib/utils/notification-helper";
+
+
+const SideNav = ({displayFormContent,handleModal,showSideNav,handleSideNav,user, handleNotificationModal}) => {
+    const [ unreadNotification, setUnreadNotification ] = useState(0);
+    const [ notificationIsupdated, setNotificationIsUpdated ] = useState(false);
+    
+    useEffect(()=>{
+        if(user){
+          if( !notificationIsupdated ){
+            setUnreadNotification(user.numbOfNotification)
+          }
+          if(notificationIsupdated && !user.numbOfNotification){
+            setNotificationIsUpdated(false);
+          }
+        }
+      },[user]);
+    
     const handleModalToggle = (formContent) => {
         if(!user){
             handleSideNav(false)
             handleModal();
             displayFormContent(formContent);
+        }
+    }
+    const handleNotification = () => {
+        if(user){
+          handleNotificationModal(true);
+          if(unreadNotification){
+            userReadNotification(user._id).then((result)=> {
+              if(result.data.message){
+                setUnreadNotification(0);
+                setNotificationIsUpdated(true);
+              }
+            });
+          } 
+        }else{
+          toast.dark("Login to receive notifications",{
+            autoClose: 3000,
+            pauseOnFocusLoss: false,
+            toastId: "linrole"
+          });
         }
     }
     return (
@@ -37,10 +76,11 @@ const SideNav = ({displayFormContent,handleModal,showSideNav,handleSideNav,user}
                 <p onClick={()=>handleModalToggle("login")}>Login</p>
                 <p onClick={()=>handleModalToggle("signup")}>Signup</p>
             </div>
-            <div className={style.wishlist}>
-                <Link href="/customer/wishlist"><p><a>Wishlist</a></p></Link>
+            <div className={style.notification} onClick={handleNotification}>
+                Notification
+                <span className={`badge ${unreadNotification ? "bg-danger" : "bg-secondary"}`}>{unreadNotification}</span>
             </div>
-            <div className={style.signOut}>
+            <div className={style.signOut} >
                 {user ? <p onClick={()=>signOut({ callbackUrl: 'https://dealpot-nextjs.vercel.app' })}>Sign Out</p> : <p>Sign Out</p>}
             </div>
             <div className={style.address}>
