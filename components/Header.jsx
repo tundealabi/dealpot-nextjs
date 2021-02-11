@@ -9,7 +9,7 @@ import style from '../styles/Header.module.css';
 import { userReadNotification } from "../lib/utils/notification-helper";
 
 const Header = ({handleModal, displayFormContent,handleSideNav,user,focused,deactivateFocus, handleNotificationModal}) => {
-  console.log("header-user",user)
+  // console.log("header-user",user)
 const router = useRouter();
 const [searchTerm, changeSearch] = useState("");
 const searchInput = useRef(null);

@@ -35,12 +35,12 @@
     height: 2.876rem;
 }
 .product button, .product a {
-    border-color: #2d2d2d;
+    border-color: #dc3545;
     outline: 0;
     transition: all 1.3s;
 }
 .product button:hover, .product a:hover{
-    background-color: #2d2d2d;
+    background-color: #dc3545;
     color: honeydew;
 }
 .wishlistProduct {
