@@ -4,16 +4,30 @@
     display: flex;
     flex-flow: row nowrap;
 }
-.footer > div:last-child {
-    flex-basis: 70%;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-}
+
 .footer > div:first-child{
     flex-basis: 30%;
     text-align: center;
+    border-right: 1px solid gray;
+}
+
+.footer > div:nth-child(2), .footer > div:nth-child(3) {
+    flex-basis: 35%;
+    display: flex;
+    flex-flow: column nowrap;
+    padding-top: 1rem;
+    align-items: center;
+    /* justify-content: center; */
+    text-align: center;
+    /* border: 1px solid green; */
+}
+.footer > div:nth-child(3) {
+    flex-basis: 45%;
+    border-left: 1px solid grey;
+}
+.footer > div:nth-child(2) a{
+    margin-right: 1rem;
+    color: white;
 }
 
 .footer span {
@@ -24,11 +38,9 @@
     .footer > div:first-child {
         display: none;
     }
-    .footer > div:last-child{
-        flex-basis: 100%;
+    .footer > div:nth-child(2), .footer > div:nth-child(3){
+        flex-basis: 50%;
         text-align: center;
     }
-    .footer > div:last-child > p{
-        font-size: .94rem;
-    }
+    
 }

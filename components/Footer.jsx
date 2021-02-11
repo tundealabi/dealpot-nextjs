@@ -6,14 +6,27 @@ const Footer = ({showWishlistFooter, isWishlist}) => {
             <div>
                 <img src="/footer_logo.png" alt="footer dealpot logo"/>   
             </div>
-            <div>
+                <div>
+                    <p>Connect with us</p>
+                    <p>
+                        <a href="https://www.figma.com/file/CPdesYTkfupcz4ay8IkJcw/Dealpot-(Group-5)?node-id=377%3A0"><i className="fab fa-figma"></i></a>
+                        <a href="#"><i className="fab fa-github"></i></a>
+                        </p>
+                </div>
+                <div>
+                    <p>Address</p>
+                    <p>16A Fola Jinadu Crescent, Gbagada Lagos, Nigeria</p>
+                </div>
+
+            {/* My Personal stuffs */}
+            {/* <div>
                 <p>Developed with <span>NextJs &amp; ReactJs &copy; 2021</span></p>
                 <div>
                     <p>Github: <a href="https://github.com/tundealabi/dealpot-nextjs" target="_blank" ><i className="fab fa-github"></i></a></p>
                     <p>Portfolio: <a href="https://www.notion.so/Alabi-Akintunde-Gregory-ecefe1e2c48f4db09318d9e4ce4ea85d" target="_blank" ><i className="fas fa-id-card-alt"></i></a></p> 
                 </div>
                    
-            </div>
+            </div> */}
         </div>
     )
 }
