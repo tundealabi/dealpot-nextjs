@@ -27,7 +27,7 @@
 }
 .footer > div:nth-child(2) a{
     margin-right: 1rem;
-    color: white;
+    color: grey;
 }
 
 .footer span {
@@ -38,8 +38,8 @@
     .footer > div:first-child {
         display: none;
     }
-    .footer > div:nth-child(2), .footer > div:nth-child(3){
-        flex-basis: 50%;
+    .footer > div:nth-child(3){
+        flex-basis: 65%;
         text-align: center;
     }
     
