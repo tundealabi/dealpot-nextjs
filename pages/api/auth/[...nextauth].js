@@ -7,6 +7,21 @@ const options = {
         Providers.Google({
             clientId: process.env.dealpot_googleAuthClientId,
             clientSecret: process.env.dealpot_googleAuthClientSecret
+        }),
+        Providers.Email({
+            server: {
+                port: 465,
+                host: 'smtp.gmail.com',
+                secure: true,
+                auth: {
+                  user: process.env.EMAIL_SERVER_USER,
+                  pass: process.env.EMAIL_SERVER_PASSWORD
+                },
+                tls: {
+                  rejectUnauthorized: false,
+                },
+              },
+              from: process.env.NEXTAUTH_EMAIL_FROM
         })
     ],
     session: {
@@ -22,12 +37,21 @@ const options = {
             // console.log("user",user)
             // console.log("acct",account)
             // console.log("prfile",profile)
-            user.id = await saveUser(profile);
-            return true;
+            if(account.type === "oauth"){
+                console.log("came to type of oauth")
+                 user.id = await saveUser(profile);
+                 return true;
+            }
+            if(account.type === "email" && !profile.verificationRequest){
+                console.log("came to verification reques")
+                user.id = await saveUser(profile);
+                return true;
+            }
+            
         },
         session: async (session, token) => {
             // console.log("sess",session)
-            // console.log("user-sess",user)
+            // console.log("user-sess",token)
             const dbUser = await getUser(token.id);
             if(!dbUser) return null;
             session.user = {...dbUser};

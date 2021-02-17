@@ -1,0 +1,22 @@
+.container{
+    padding: 2rem;
+    background-color: #f5f5f5;
+ }
+ .loaderContainer {
+    padding: 2rem;
+     background-color: white;
+ }
+
+ @media(max-width:768px){
+     .container, .loaderContainer{
+         padding: .54rem;
+     }
+     .container > div > div{
+         padding: 0 .53rem 0 .83rem;
+     }
+ }
+ /* @media(max-height:1280px) and (max-width:810px){
+     .customContainer {
+         height: 70vh;
+     }
+ } */
